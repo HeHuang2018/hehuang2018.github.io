@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黄鹤 | Academic Resume</title>
+  <style>
+    :root {
+      --paper: #f6f4ef;
+      --panel: rgba(255, 255, 255, 0.78);
+      --ink: #14212d;
+      --muted: #5c6773;
+      --line: rgba(20, 33, 45, 0.14);
+      --accent: #123a63;
+      --accent-soft: rgba(18, 58, 99, 0.08);
+      --shadow: 0 18px 48px rgba(16, 24, 32, 0.08);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(18, 58, 99, 0.08), transparent 30%),
+        radial-gradient(circle at right 10% top 20%, rgba(18, 58, 99, 0.05), transparent 18%),
+        linear-gradient(180deg, #efece4 0%, var(--paper) 38%, #f9f7f2 100%);
+      min-height: 100vh;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(20, 33, 45, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 33, 45, 0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 85%);
+      opacity: 0.28;
+    }
+
+    .page {
+      position: relative;
+      width: min(calc(100% - 40px), var(--max));
+      margin: 28px auto 60px;
+      background: var(--panel);
+      border: 1px solid rgba(20, 33, 45, 0.09);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(20, 33, 45, 0.08);
+      pointer-events: none;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(240px, 1.55fr) minmax(180px, 0.75fr);
+      gap: 36px;
+      padding: 72px 72px 44px;
+      align-items: end;
+      position: relative;
+    }
+
+    .masthead::after {
+      content: "";
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), rgba(18, 58, 99, 0.15));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.96;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      font-size: 1.04rem;
+      color: var(--muted);
+      max-width: 42rem;
+    }
+
+    .hero-meta {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 10px 24px;
+      font-size: 0.96rem;
+    }
+
+    .meta-item {
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .portrait-wrap {
+      justify-self: end;
+      width: min(100%, 250px);
+      position: relative;
+    }
+
+    .portrait-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -16px 22px 22px -16px;
+      border: 1px solid rgba(18, 58, 99, 0.14);
+      background: linear-gradient(180deg, rgba(18, 58, 99, 0.02), transparent);
+    }
+
+    .portrait {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 261 / 366;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.02);
+      border: 8px solid rgba(255, 255, 255, 0.72);
+      box-shadow: 0 18px 36px rgba(13, 22, 33, 0.14);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 0;
+    }
+
+    .main,
+    .aside {
+      padding: 36px 72px 72px;
+    }
+
+    .aside {
+      background: linear-gradient(180deg, rgba(18, 58, 99, 0.03), rgba(18, 58, 99, 0.06));
+      border-left: 1px solid rgba(18, 58, 99, 0.08);
+    }
+
+    section + section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.24rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .section-head span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-text {
+      margin: 0;
+      color: #25303b;
+      font-size: 0.98rem;
+    }
+
+    .timeline-item,
+    .publication,
+    .card {
+      padding: 18px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-item + .timeline-item,
+    .publication + .publication,
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .timeline-head,
+    .publication-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .timeline-title,
+    .publication-title {
+      font-size: 1.06rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .timeline-meta,
+    .publication-meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .timeline-subtitle,
+    .publication-note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border: 1px solid rgba(18, 58, 99, 0.14);
+      background: rgba(255, 255, 255, 0.56);
+      font-size: 0.86rem;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .metric {
+      padding: 16px 16px 14px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(18, 58, 99, 0.1);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.72rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .metric span {
+      font-size: 0.84rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      font-size: 0.96rem;
+    }
+
+    .list li:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(18, 58, 99, 0.24);
+    }
+
+    a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 980px) {
+      .masthead,
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-wrap {
+        justify-self: start;
+        width: min(240px, 52vw);
+      }
+
+      .aside {
+        border-left: 0;
+        border-top: 1px solid rgba(18, 58, 99, 0.08);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max));
+        margin: 10px auto 24px;
+      }
+
+      .page::before {
+        inset: 10px;
+      }
+
+      .masthead,
+      .main,
+      .aside {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .masthead {
+        padding-top: 36px;
+        gap: 26px;
+      }
+
+      .masthead::after {
+        left: 24px;
+        right: 24px;
+      }
+
+      .hero-meta,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 14vw, 4rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div>
+        <div class="eyebrow">Personal Resume</div>
+        <h1>黄鹤</h1>
+        <p class="subtitle">
+          云南大学 信号与信息处理专业 | 主要关注连续测试时适应方向的研究。
+        </p>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <span class="meta-label">Phone</span>
+            130-2011-6219
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">WeChat</span>
+            h2002v123
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Email</span>
+            <a href="mailto:huanghe2018678@163.com">huanghe2018678@163.com</a>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Status</span>
+            随时可提前进组
+          </div>
+        </div>
+      </div>
+      <div class="portrait-wrap">
+        <img
+          class="portrait"
+          src="1.png"
+          alt="黄鹤头像">
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="main">
+        <section>
+          <div class="section-head">
+            <h2>Research Profile</h2>
+            <span>研究概况</span>
+          </div>
+          <p class="section-text">
+            当前研究聚焦于动态开放环境中的测试时适应（TTA）方法，目标是提升模型在连续适应场景下应对分布偏移时的稳定性与鲁棒性。
+            研究兴趣覆盖持续测试时适应、异构适应策略以及开放环境下模型性能保持问题。
+          </p>
+          <div class="tag-row">
+            <span class="tag">Test-Time Adaptation</span>
+            <span class="tag">Continual Adaptation</span>
+            <span class="tag">Distribution Shift</span>
+            <span class="tag">Robust Representation</span>
+          </div>
+          <div class="metric-grid">
+            <div class="metric">
+              <strong>1</strong>
+              <span>CCF-B First-Author Paper</span>
+            </div>
+            <div class="metric">
+              <strong>1</strong>
+              <span>CCF-A Collaboration</span>
+            </div>
+            <div class="metric">
+              <strong>1</strong>
+              <span>SCI Q1 Collaboration</span>
+            </div>
+            <div class="metric">
+              <strong>Top 5%</strong>
+              <span>Undergraduate Rank</span>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2>Education</h2>
+            <span>教育经历</span>
+          </div>
+
+          <article class="timeline-item">
+            <div class="timeline-head">
+              <h3 class="timeline-title">云南大学 · 信号与信息处理</h3>
+              <div class="timeline-meta">2024.08 – 至今 · 云南</div>
+            </div>
+            <p class="timeline-subtitle">学术型硕士研究生</p>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-head">
+              <h3 class="timeline-title">上海应用技术大学 · 电子信息工程</h3>
+              <div class="timeline-meta">2020.09 – 2024.06 · 上海</div>
+            </div>
+            <p class="timeline-subtitle">本科，GPA 3.6，专业排名前 5%</p>
+          </article>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2>Publications</h2>
+            <span>学术成果</span>
+          </div>
+
+          <article class="publication">
+            <div class="publication-head">
+              <h3 class="publication-title">HeLM: Heterogeneity-Aware Layer Merging for Stable Long-Term Continual Test-Time Adaptation</h3>
+              <div class="publication-meta">ICME 2026 | CCF-B | Accepted
+              </div>
+            </div>
+            <p class="publication-note">
+              连续测试时适应场景中的分层适应问题
+            </p>
+          </article>
+
+          <article class="publication">
+            <div class="publication-head">
+              <h3 class="publication-title">Blocking the Leakage: Manifold-Aware Gradient Projection for Long-Horizon Test-Time Adaptation</h3>
+              <div class="publication-meta">ICML 2026 | CCF-A | Accepted</div>
+            </div>
+            <p class="publication-note">
+              长时域测试时适应场景中的知识泄漏抑制与流形约束梯度投影机制
+            </p>
+          </article>
+
+          <article class="publication">
+            <div class="publication-head">
+              <h3 class="publication-title">Excising Parasitic Features: Stabilizing Long-Horizon Test-Time Adaptation via Taylor-Shapley Utility</h3>
+              <div class="publication-meta">AAAI 2027 | CCF-A | Presubmit</div>
+            </div>
+            <p class="publication-note">
+              长时域测试时适应场景中的知识泄漏抑制与流形约束梯度投影机制
+            </p>
+          </article>
+        </section>
+      </section>
+
+      <aside class="aside">
+        <section>
+          <div class="section-head">
+            <h2>Academic Notes</h2>
+            <span>学术说明</span>
+          </div>
+          <!-- <div class="card">
+            <p class="section-text">
+              研究内容围绕连续适应环境中的模型鲁棒性展开，重点分析测试阶段样本分布动态变化对性能造成的影响，并探索更稳定的适应机制。
+            </p>
+          </div> -->
+          <div class="card">
+            <p class="section-text">
+              代码仓库：
+              <a href="https://github.com/HeHuang2018" target="_blank" rel="noreferrer">github.com/HeHuang2018</a>
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2>Strengths</h2>
+            <span>自我评价</span>
+          </div>
+          <ul class="list">
+            <li>喜欢研究新技术，并能够较快将其应用到具体项目与研究问题中。</li>
+            <li>熟悉 AI 相关知识，持续关注嵌入式与人工智能结合的交叉方向。</li>
+            <li>学习能力较强，能保持长期专注，适合持续推进科研型任务。</li>
+            <li>做事耐心细致，有责任心，具备较好的团队协作与执行意识。</li>
+          </ul>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2>Keywords</h2>
+            <span>研究标签</span>
+          </div>
+          <ul class="list">
+            <li>TTA / Test-Time Adaptation</li>
+            <li>Continual Test-Time Adaptation</li>
+            <li>Open-World Distribution Shift</li>
+            <li>AI + Embedded Systems Exploration</li>
+          </ul>
+        </section>
+
+        <!-- <p class="footer-note">
+          This resume page is designed in a restrained academic-editorial style:
+          light paper background, fine rules, and publication-first hierarchy.
+        </p> -->
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
